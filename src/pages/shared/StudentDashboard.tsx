@@ -103,14 +103,22 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
 
     const handleMutation = () => fetchSummary(false);
     window.addEventListener('cit:data-mutated', handleMutation);
+    window.addEventListener('cit_schedule_changed', handleMutation);
+    window.addEventListener('focus', handleMutation);
+
+    // Periodic live sync so dashboard is always reactive to admin schedule updates
+    const timer = setInterval(() => fetchSummary(false), 15000);
 
     return () => {
       window.removeEventListener('cit:data-mutated', handleMutation);
+      window.removeEventListener('cit_schedule_changed', handleMutation);
+      window.removeEventListener('focus', handleMutation);
+      clearInterval(timer);
     };
   }, [fetchSummary]);
 
   const firstName = (currentUser.name || summaryData?.student_name || 'Student').split(' ')[0];
-  const studentGroup = currentUser.studentGroupId || summaryData?.student_group || 'CSE-2A';
+  const studentGroup = currentUser.studentGroupId || summaryData?.student_group || 'CSE-2';
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
@@ -121,7 +129,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
             Good Morning, {firstName}! 👋
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Here's your real-time academic schedule • {summaryData?.today.day || 'MON'} Term Roster
+            Here's your real-time academic schedule • {summaryData?.today.is_weekend ? `${summaryData?.today.day || 'MON'} Term Roster (Upcoming Academic Routine)` : `${summaryData?.today.day || 'MON'} Term Roster`}
           </p>
         </div>
 
@@ -151,7 +159,9 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
         {/* Card 1: Classes Today */}
         <CardTransition className="bg-blue-600 p-5 rounded-2xl text-white shadow-sm flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-wider text-blue-200">CLASSES TODAY</div>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-blue-200">
+              {summaryData?.today.is_weekend ? `UPCOMING CLASSES (${summaryData?.today.day || 'MON'})` : 'CLASSES TODAY'}
+            </div>
             <div className="h-9 flex items-baseline mt-1">
               {loading ? (
                 <Skeleton className="h-7 w-16 bg-blue-500/50 rounded-md" />
@@ -165,7 +175,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               <Clock className="w-3 h-3" />
               <span>
                 {summaryData?.today.is_weekend
-                  ? 'Weekend • Showing upcoming weekday load'
+                  ? `Weekend • Showing ${summaryData?.today.day || 'Monday'} timetable load`
                   : `${summaryData?.stats.classes_today ?? 0} Scheduled Sessions`}
               </span>
             </div>
@@ -251,7 +261,9 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center space-x-2">
               <Calendar className="w-4 h-4 text-blue-600" />
-              <h2 className="text-sm font-bold text-slate-900">Today's Classes ({studentGroup})</h2>
+              <h2 className="text-sm font-bold text-slate-900">
+                {summaryData?.today.is_weekend ? `Upcoming Classes (${summaryData?.today.day || 'MON'} • ${studentGroup})` : `Today's Classes (${studentGroup})`}
+              </h2>
             </div>
             <button
               onClick={() => onNavigateTab('timetable')}
