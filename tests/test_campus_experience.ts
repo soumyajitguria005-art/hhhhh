@@ -208,9 +208,48 @@ async function runCampusExperienceSuite() {
   // SECTION 7: HTTP ASSET DELIVERY TEST
   // -----------------------------------------------------------------
   console.log('\n--- SECTION 7: HTTP Asset Delivery Test ---');
+
+  let testServer: http.Server | null = null;
+  let serverPort = 3000;
+
+  // Check if a server is already listening on 3000
+  const isServerRunning = await new Promise<boolean>((resolve) => {
+    const probe = http.get('http://127.0.0.1:3000/assets/campus-sequence/ezgif-frame-001.jpg', (res) => {
+      resolve(res.statusCode === 200);
+    });
+    probe.on('error', () => resolve(false));
+  });
+
+  if (!isServerRunning) {
+    testServer = http.createServer((req, res) => {
+      const safePath = path.normalize(req.url || '').replace(/^(\.\.[\/\\])+/, '');
+      const filePath = path.join(process.cwd(), 'public', safePath);
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+        fs.createReadStream(filePath).pipe(res);
+      } else {
+        res.writeHead(404);
+        res.end();
+      }
+    });
+
+    await new Promise<void>((resolve) => {
+      testServer!.listen(3000, '127.0.0.1', () => {
+        serverPort = 3000;
+        resolve();
+      }).on('error', () => {
+        testServer!.listen(0, '127.0.0.1', () => {
+          const addr = testServer!.address() as any;
+          serverPort = addr.port;
+          resolve();
+        });
+      });
+    });
+  }
+
   const checkAssetHttp = async (relPath: string): Promise<number> => {
     return new Promise((resolve) => {
-      const req = http.get(`http://127.0.0.1:3000${relPath}`, (res) => {
+      const req = http.get(`http://127.0.0.1:${serverPort}${relPath}`, (res) => {
         resolve(res.statusCode || 500);
       });
       req.on('error', () => resolve(500));
@@ -225,6 +264,10 @@ async function runCampusExperienceSuite() {
 
   const statusFrame242 = await checkAssetHttp('/assets/campus-sequence/ezgif-frame-242.jpg');
   assert(statusFrame242 === 200, 'HTTP GET /assets/campus-sequence/ezgif-frame-242.jpg returns 200 OK');
+
+  if (testServer) {
+    await new Promise<void>((resolve) => testServer!.close(() => resolve()));
+  }
 
   console.log('\n-----------------------------------------------------------------');
   console.log(`CAMPUS EXPERIENCE TESTS: ${passed} PASSED, ${failed} FAILED`);

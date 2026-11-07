@@ -200,6 +200,7 @@ export default function App() {
       refreshBackendData();
     };
     window.addEventListener('cit:data-mutated', handleMutation);
+    window.addEventListener('cit_schedule_changed', handleMutation);
     const interval = setInterval(() => {
       if (document.visibilityState === 'visible') {
         refreshBackendData();
@@ -207,6 +208,7 @@ export default function App() {
     }, 45000);
     return () => {
       window.removeEventListener('cit:data-mutated', handleMutation);
+      window.removeEventListener('cit_schedule_changed', handleMutation);
       clearInterval(interval);
     };
   }, [currentUser]);

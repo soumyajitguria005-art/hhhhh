@@ -124,9 +124,17 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({
 
     const handleMutation = () => fetchSummary(false);
     window.addEventListener('cit:data-mutated', handleMutation);
+    window.addEventListener('cit_schedule_changed', handleMutation);
+    window.addEventListener('focus', handleMutation);
+
+    // Periodic sync
+    const timer = setInterval(() => fetchSummary(false), 20000);
 
     return () => {
       window.removeEventListener('cit:data-mutated', handleMutation);
+      window.removeEventListener('cit_schedule_changed', handleMutation);
+      window.removeEventListener('focus', handleMutation);
+      clearInterval(timer);
     };
   }, [fetchSummary]);
 

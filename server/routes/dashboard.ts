@@ -134,7 +134,9 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
       // Filter exams by department
       const filteredExams = allExams.filter((ex: any) => {
         if (normDeptFilter === 'ALL') return true;
-        const crs = coursesMap.get(ex.course_id || ex.exam_id) as any;
+        const meta = examsMetaMap.get(ex.exam_id || ex.id);
+        const courseId = meta?.course_ids?.[0] || ex.course_id || (ex.exam_id ? String(ex.exam_id).replace(/^EX-/, '') : '');
+        const crs = coursesMap.get(courseId);
         const examDept = crs ? normalizeDept(crs.department) : '';
         return !examDept || examDept === normDeptFilter;
       });
@@ -302,14 +304,16 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
         return meta && (meta.faculty_id === facId || meta.faculty_id === user.facultyId || meta.faculty_id === 'F19');
       });
 
-      // Today's classes
+      // Today's classes (or upcoming Monday if accessed on weekend)
+      const targetDay = (currentDay === 'SAT' || currentDay === 'SUN') ? 'MON' : currentDay;
       const todayClasses = facultySessions
-        .filter((s: any) => s.day === currentDay)
+        .filter((s: any) => s.day === targetDay)
         .map((s: any) => {
           const meta = sessionsMetaMap.get(s.session_id) as any;
           const crs = meta ? coursesMap.get(meta.course_id) : null;
           const duration = meta?.duration || 1;
           const { start, end } = getPeriodTime(s.start_period, duration);
+          const grps = meta?.groups || meta?.group_ids || ['CSE-2A'];
 
           return {
             session_id: s.session_id,
@@ -317,7 +321,7 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
             course_title: crs?.title || 'Advanced Computing',
             kind: meta?.kind || 'lecture',
             room_id: s.room_id || 'B-201',
-            group_id: (meta?.group_ids || ['CSE-2A']).join(', '),
+            group_id: Array.isArray(grps) ? grps.join(', ') : String(grps),
             day: s.day,
             start_period: s.start_period,
             duration,
@@ -338,11 +342,12 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
 
         if (meta && meta.course_id) {
           const crs = coursesMap.get(meta.course_id);
+          const grps = meta.groups || meta.group_ids || ['CSE-2A'];
           if (!assignedCoursesMap.has(meta.course_id)) {
             assignedCoursesMap.set(meta.course_id, {
               course_code: meta.course_id,
               course_title: crs?.title || 'Academic Course',
-              section: (meta.group_ids || ['CSE-2A']).join(', '),
+              section: Array.isArray(grps) ? grps.join(', ') : String(grps),
               weekly_load_hours: dur,
               room_id: s.room_id || 'B-201',
               syllabus_progress: 'Unit 3/4',
@@ -360,17 +365,22 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
       // Upcoming exams / invigilation duties
       const upcomingExams = allExams
         .filter((ex: any) => {
+          const meta = examsMetaMap.get(ex.exam_id || ex.id);
+          const courseId = meta?.course_ids?.[0] || ex.course_id || (ex.exam_id ? String(ex.exam_id).replace(/^EX-/, '') : '');
           return (
             ex.invigilator_lead === user.id ||
             ex.invigilator_asst === user.id ||
+            assignedCoursesMap.has(courseId) ||
             assignedCoursesMap.has(ex.course_id || ex.exam_id)
           );
         })
         .map((ex: any) => {
-          const crs = coursesMap.get(ex.course_id || ex.exam_id);
+          const meta = examsMetaMap.get(ex.exam_id || ex.id);
+          const courseId = meta?.course_ids?.[0] || ex.course_id || (ex.exam_id ? String(ex.exam_id).replace(/^EX-/, '') : '');
+          const crs = coursesMap.get(courseId);
           return {
-            exam_id: ex.exam_id,
-            title: crs?.title || ex.exam_id,
+            exam_id: ex.exam_id || ex.id,
+            title: crs?.title || meta?.name || ex.exam_id || 'Mid-Term Examination',
             day: ex.day || 'FRI',
             session: ex.session || 'AM',
             time: ex.session === 'PM' ? '02:00 PM – 05:00 PM' : '09:00 AM – 12:00 PM',
@@ -397,8 +407,8 @@ router.get('/dashboard/summary', requireAuth, async (req: AuthenticatedRequest, 
         department: user.department || 'Computer Science & Engineering',
         faculty_id: facId,
         today: {
-          day: currentDay,
-          is_weekend: isSunday,
+          day: targetDay,
+          is_weekend: isSunday || currentDay === 'SAT',
           classes_count: todayClasses.length,
           classes: todayClasses,
         },

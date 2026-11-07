@@ -61,7 +61,9 @@ export const STUDENT_SIGNIN_SCOPES = ['openid', 'email', 'profile'];
  * This sensitive scope is ONLY requested during explicit Google Calendar connection.
  */
 export const CALENDAR_SCOPES = [
+  'email',
   'https://www.googleapis.com/auth/calendar.events',
+  'https://www.googleapis.com/auth/calendar.readonly',
 ];
 
 // Fallback auth object to preserve backward compatibility for legacy callers
