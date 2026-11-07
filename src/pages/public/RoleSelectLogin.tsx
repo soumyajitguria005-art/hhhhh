@@ -261,28 +261,28 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between">
       {/* Top Navigation Bar */}
-      <header className="bg-white border-b border-slate-200 px-6 lg:px-16 py-3.5 flex items-center justify-between shadow-2xs">
+      <header className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-16 py-3 sm:py-3.5 flex items-center justify-between shadow-2xs">
         <div
-          className="flex items-center space-x-3 cursor-pointer group"
+          className="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group"
           onClick={onBackToLanding}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && onBackToLanding()}
         >
-          <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg shadow-xs group-hover:bg-blue-700 transition-colors">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-base sm:text-lg shadow-xs group-hover:bg-blue-700 transition-colors shrink-0">
             C
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-slate-900 tracking-tight">CITSchedule</span>
-              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+              <span className="font-bold text-slate-900 tracking-tight text-sm sm:text-base">CITSchedule</span>
+              <span className="hidden sm:inline text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
                 Chilika Institute of Technology
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3 sm:space-x-4">
           <button
             onClick={onBackToLanding}
             className="text-xs font-semibold text-slate-600 hover:text-blue-600 transition-colors"
@@ -293,14 +293,14 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
       </header>
 
       {/* Main Login Container */}
-      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        <div className="w-full max-w-lg bg-white rounded-3xl border border-slate-200/90 shadow-xl p-6 sm:p-8 cit-box-blend">
+      <main className="flex-1 flex items-center justify-center p-3 sm:p-6 lg:p-8">
+        <div className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-xl p-5 sm:p-8 cit-box-blend">
           {/* Header & Branding */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mb-3 shadow-2xs">
-              <Calendar className="w-6 h-6" />
+            <div className="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mb-3 shadow-2xs">
+              <Calendar className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Welcome to CIT Portal
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-sm mx-auto">
@@ -322,7 +322,7 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
                 <button
                   type="button"
                   onClick={() => onLoginSuccess(currentUser)}
-                  className="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center space-x-1.5"
+                  className="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
                 >
                   <span>Continue to Dashboard</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -331,7 +331,7 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
                   <button
                     type="button"
                     onClick={onLogout}
-                    className="py-2 px-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors"
+                    className="py-2 px-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors cursor-pointer"
                   >
                     Switch Account
                   </button>
@@ -346,13 +346,13 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
             <button
               type="button"
               onClick={() => handleCategoryChange('student')}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
+              className={`flex-1 py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center space-x-1 sm:space-x-1.5 cursor-pointer ${
                 activeCategory === 'student'
                   ? 'bg-white text-blue-700 shadow-sm border border-slate-200/80'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <GraduationCap className="w-4 h-4 shrink-0" />
+              <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>Student</span>
             </button>
 
@@ -360,13 +360,13 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
             <button
               type="button"
               onClick={() => handleCategoryChange('professor')}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
+              className={`flex-1 py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center space-x-1 sm:space-x-1.5 cursor-pointer ${
                 activeCategory === 'professor'
                   ? 'bg-white text-blue-700 shadow-sm border border-slate-200/80'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <Briefcase className="w-4 h-4 shrink-0" />
+              <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>Professor</span>
             </button>
 
@@ -374,13 +374,13 @@ export const RoleSelectLogin: React.FC<RoleSelectLoginProps> = ({
             <button
               type="button"
               onClick={() => handleCategoryChange('hod_admin')}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
+              className={`flex-1 py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center space-x-1 sm:space-x-1.5 cursor-pointer ${
                 activeCategory === 'hod_admin'
                   ? 'bg-white text-blue-700 shadow-sm border border-slate-200/80'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <ShieldCheck className="w-4 h-4 shrink-0" />
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>HOD / Admin</span>
             </button>
           </div>

@@ -53,7 +53,7 @@ export const FacultyExamScheduler: React.FC<FacultyExamSchedulerProps> = ({
   const nextDuty = duties.find((d) => d.status === 'upcoming');
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
@@ -184,7 +184,7 @@ export const FacultyExamScheduler: React.FC<FacultyExamSchedulerProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[640px]">
             <thead className="bg-slate-50 text-[10px] font-bold uppercase text-slate-400">
               <tr>
                 <th className="p-3.5">DATE & TIME</th>

@@ -113,7 +113,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
   const studentGroup = currentUser.studentGroupId || summaryData?.student_group || 'CSE-2A';
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
       {/* Top Welcome Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>

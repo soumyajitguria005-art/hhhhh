@@ -417,7 +417,7 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({ currentUser, r
                 )}
 
                 <div
-                  className={`max-w-2xl rounded-2xl p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap ${
+                  className={`max-w-[85%] sm:max-w-2xl rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap ${
                     msg.sender === 'user'
                       ? 'bg-blue-600 text-white rounded-tr-xs shadow-2xs'
                       : msg.mode === 'beta'

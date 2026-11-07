@@ -55,16 +55,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
         }`}
       >
         {/* Top Header - Glassmorphic with backdrop blur */}
-        <header className="bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 border-b border-white/50 shadow-[0_4px_24px_0_rgba(0,0,0,0.04)] sticky top-0 z-40 px-6 lg:px-16 py-3 flex items-center justify-between transition-all">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-blue-500/20">
+        <header className="bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 border-b border-white/50 shadow-[0_4px_24px_0_rgba(0,0,0,0.04)] sticky top-0 z-40 px-4 sm:px-6 lg:px-16 py-3 flex items-center justify-between transition-all">
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-base sm:text-lg shadow-md shadow-blue-500/20 shrink-0">
               C
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-slate-900 text-base tracking-tight leading-none">
+              <span className="font-extrabold text-slate-900 text-sm sm:text-base tracking-tight leading-none">
                 CITSchedule
               </span>
-              <span className="text-[11px] font-medium text-slate-500 tracking-tight mt-1 leading-none">
+              <span className="hidden sm:inline text-[11px] font-medium text-slate-500 tracking-tight mt-1 leading-none">
                 Chilika Institute of Technology
               </span>
             </div>
@@ -93,16 +93,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </button>
           </nav>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <button
               onClick={onSignIn}
-              className="text-xs font-semibold text-slate-700 hover:text-blue-600 px-3 py-2 rounded-lg transition-colors cursor-pointer"
+              className="text-xs font-semibold text-slate-700 hover:text-blue-600 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-colors cursor-pointer"
             >
               Sign In
             </button>
             <button
               onClick={onGetStarted}
-              className="text-xs font-semibold bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 active:scale-95 transition-all flex items-center space-x-1.5 cursor-pointer"
+              className="text-xs font-semibold bg-blue-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow-sm hover:bg-blue-700 active:scale-95 transition-all flex items-center space-x-1 sm:space-x-1.5 cursor-pointer"
             >
               <span>Get Started</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -116,38 +116,38 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
       </section>
 
       {/* Key Metric Highlights Bar */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 border-b border-slate-200/60 py-12 px-6 lg:px-16">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 border-b border-slate-200/60 py-8 sm:py-12 px-4 sm:px-6 lg:px-16">
         {/* Soft ambient light behind metrics */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[260px] bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)]" />
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
-          <div className="group relative rounded-2xl p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
-            <div className="text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">5</div>
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center relative z-10">
+          <div className="group relative rounded-2xl p-3.5 sm:p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">5</div>
             <div className="text-xs font-bold text-slate-800 mt-1.5">User Roles</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Admin, HOD, Faculty, Student, Club</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Admin, HOD, Faculty, Student, Club</div>
           </div>
-          <div className="group relative rounded-2xl p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
-            <div className="text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">4+</div>
+          <div className="group relative rounded-2xl p-3.5 sm:p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">4+</div>
             <div className="text-xs font-bold text-slate-800 mt-1.5">Scheduling Modules</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Academic, Exam, Venues, Reschedules</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Academic, Exam, Venues, Reschedules</div>
           </div>
-          <div className="group relative rounded-2xl p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
-            <div className="text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">100%</div>
+          <div className="group relative rounded-2xl p-3.5 sm:p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">100%</div>
             <div className="text-xs font-bold text-slate-800 mt-1.5">Clash-Free</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Deterministic Constraint Solvers</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Deterministic Constraint Solvers</div>
           </div>
-          <div className="group relative rounded-2xl p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
-            <div className="text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">All in 1</div>
+          <div className="group relative rounded-2xl p-3.5 sm:p-5 border border-slate-200/50 bg-white/60 backdrop-blur-xs shadow-[0_2px_10px_rgba(15,23,42,0.02)] hover:border-blue-200/80 hover:bg-white hover:shadow-[0_8px_20px_rgba(37,99,235,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-600 tracking-tight transition-transform duration-300 group-hover:scale-105">All in 1</div>
             <div className="text-xs font-bold text-slate-800 mt-1.5">Campus Scheduling</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Continuous Real-Time Synchronization</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Continuous Real-Time Synchronization</div>
           </div>
         </div>
       </section>
 
       {/* Architectural Capabilities Section */}
-      <section id="features" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/40 to-blue-50/20 py-20 px-6 lg:px-16 border-b border-slate-200/60">
+      <section id="features" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/40 to-blue-50/20 py-12 sm:py-20 px-4 sm:px-6 lg:px-16 border-b border-slate-200/60">
         {/* Subtle, low-opacity ambient light effects */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-1/4 -left-48 w-96 h-96 bg-blue-400/[0.035] rounded-full blur-3xl" />
@@ -169,9 +169,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Feature 1 */}
-            <div className="group relative p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
+            <div className="group relative p-5 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
               <div className="w-10 h-10 rounded-xl bg-blue-50/90 border border-blue-100/70 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
@@ -190,7 +190,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </div>
 
             {/* Feature 2 */}
-            <div className="group relative p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
+            <div className="group relative p-5 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
               <div className="w-10 h-10 rounded-xl bg-blue-50/90 border border-blue-100/70 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
                 <Users className="w-5 h-5" />
               </div>
@@ -212,7 +212,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </div>
 
             {/* Feature 3 */}
-            <div className="group relative p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
+            <div className="group relative p-5 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
               <div className="w-10 h-10 rounded-xl bg-blue-50/90 border border-blue-100/70 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
                 <Building2 className="w-5 h-5" />
               </div>
@@ -235,7 +235,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </div>
 
             {/* Feature 4 */}
-            <div className="group relative p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
+            <div className="group relative p-5 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-xs border border-slate-200/70 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-4">
               <div className="w-10 h-10 rounded-xl bg-blue-50/90 border border-blue-100/70 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
                 <AlertTriangle className="w-5 h-5" />
               </div>
@@ -257,14 +257,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
       </section>
 
       {/* Stakeholders Section */}
-      <section id="personas" className="relative overflow-hidden bg-gradient-to-b from-slate-50/40 via-white to-slate-50/60 py-20 px-6 lg:px-16 border-b border-slate-200/60 w-full">
+      <section id="personas" className="relative overflow-hidden bg-gradient-to-b from-slate-50/40 via-white to-slate-50/60 py-12 sm:py-20 px-4 sm:px-6 lg:px-16 border-b border-slate-200/60 w-full">
         {/* Ambient subtle light backdrop */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.04),transparent_75%)]" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="mb-12">
+          <div className="mb-10 sm:mb-12">
             <p className="text-[11px] font-bold tracking-wider text-blue-600 uppercase">TAILORED PERSONAS</p>
             <div className="flex flex-col md:flex-row md:items-end justify-between">
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
@@ -277,8 +277,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-5 sm:p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 border border-blue-100/60 px-2.5 py-1 rounded-full w-fit inline-block shadow-2xs">
                   Control Plane
@@ -295,7 +295,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
               </div>
             </div>
 
-            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
+            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-5 sm:p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 border border-blue-100/60 px-2.5 py-1 rounded-full w-fit inline-block shadow-2xs">
                   Instructors
@@ -312,7 +312,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
               </div>
             </div>
 
-            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
+            <div className="group relative bg-white/95 backdrop-blur-xs border border-slate-200/70 rounded-2xl p-5 sm:p-7 shadow-[0_2px_12px_rgba(15,23,42,0.03)] hover:border-blue-300/70 hover:shadow-[0_12px_28px_rgba(37,99,235,0.07)] hover:-translate-y-1 transition-all duration-300 ease-out space-y-3.5 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 border border-blue-100/60 px-2.5 py-1 rounded-full w-fit inline-block shadow-2xs">
                   Learners
@@ -333,7 +333,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
       </section>
 
       {/* Autonomous Engine Preview Section */}
-      <section id="solver" className="relative overflow-hidden bg-slate-900 text-white py-18 px-6 lg:px-16 border-t border-slate-800/80">
+      <section id="solver" className="relative overflow-hidden bg-slate-900 text-white py-12 sm:py-18 px-4 sm:px-6 lg:px-16 border-t border-slate-800/80">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-blue-500/[0.08] rounded-full blur-3xl" />
           <div className="absolute -top-32 left-1/4 w-[400px] h-[400px] bg-indigo-500/[0.06] rounded-full blur-3xl" />
@@ -406,7 +406,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onSignIn
       </section>
 
       {/* Blue CTA Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white py-16 px-6 text-center border-t border-blue-500/30">
+      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white py-12 sm:py-16 px-4 sm:px-6 text-center border-t border-blue-500/30">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_80%_at_50%_0%,rgba(255,255,255,0.12),transparent_70%)]" />
 
         <div className="max-w-3xl mx-auto space-y-4 relative z-10">

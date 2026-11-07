@@ -172,7 +172,7 @@ export const AdminExamScheduler: React.FC<AdminExamSchedulerProps> = ({ currentU
   };
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
       {/* Top Hash Validation Banner */}
       <div className="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center space-x-3">
@@ -431,7 +431,7 @@ export const AdminExamScheduler: React.FC<AdminExamSchedulerProps> = ({ currentU
 
         {/* Exam Roster Table */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[720px]">
             <thead className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase text-slate-400">
               <tr>
                 <th className="p-3.5">SUBJECT CODE & MODULE</th>

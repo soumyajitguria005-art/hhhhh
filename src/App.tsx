@@ -50,6 +50,7 @@ export default function App() {
   });
   const [currentUser, setCurrentUser] = useState<UserItem | null>(null);
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Backend live state integration
   const [sessions, setSessions] = useState<TimetableSession[]>([]);
@@ -414,14 +415,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <div className="flex flex-1">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans overflow-x-hidden">
+      <div className="flex flex-1 min-w-0">
         {/* Left Role-Specific Sidebar */}
         <Sidebar
           currentUser={currentUser}
           currentTab={currentTab}
-          onSelectTab={(tab) => setCurrentTab(tab)}
+          onSelectTab={(tab) => {
+            setCurrentTab(tab);
+            setMobileMenuOpen(false);
+          }}
           onLogout={handleLogout}
+          isOpenMobile={mobileMenuOpen}
+          onCloseMobile={() => setMobileMenuOpen(false)}
         />
 
         {/* Right Main Content Area */}
@@ -433,12 +439,13 @@ export default function App() {
               window.location.hash = '#landing';
               setCurrentView('landing');
             }}
+            onToggleMobileMenu={() => setMobileMenuOpen((prev) => !prev)}
           />
 
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto min-w-0">
             <div
               key={currentTab}
-              className="min-h-full cit-page-blend"
+              className="min-h-full cit-page-blend min-w-0"
             >
               {renderRolePage()}
             </div>

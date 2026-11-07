@@ -12,6 +12,7 @@ import {
   Settings,
   User,
   GraduationCap,
+  X,
 } from 'lucide-react';
 import { UserItem, UserRole } from '../types';
 
@@ -20,6 +21,8 @@ interface SidebarProps {
   currentTab: string;
   onSelectTab: (tab: string) => void;
   onLogout: () => void;
+  isOpenMobile?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -27,6 +30,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   currentTab,
   onSelectTab,
   onLogout,
+  isOpenMobile = false,
+  onCloseMobile,
 }) => {
   const role = currentUser.role;
 
@@ -81,49 +86,78 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 h-screen sticky top-0 overflow-y-auto">
-      <div>
-        {/* Brand Header */}
-        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg shadow-sm">
-              C
-            </div>
-            <div>
-              <div className="text-sm font-bold tracking-tight text-slate-900 flex items-center space-x-1">
-                <span>CITSchedule</span>
+    <>
+      {/* Mobile Drawer Backdrop Overlay */}
+      {isOpenMobile && (
+        <div
+          onClick={onCloseMobile}
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 lg:hidden transition-opacity"
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`fixed lg:sticky top-0 z-50 lg:z-auto h-screen bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto w-64 transition-transform duration-200 ease-in-out ${
+          isOpenMobile ? 'translate-x-0 shadow-2xl lg:shadow-none' : '-translate-x-full lg:translate-x-0'
+        }`}
+      >
+        <div>
+          {/* Brand Header */}
+          <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg shadow-sm">
+                C
               </div>
-              <div className="text-[11px] text-slate-500 font-medium">{getPortalSubtitle()}</div>
+              <div>
+                <div className="text-sm font-bold tracking-tight text-slate-900 flex items-center space-x-1">
+                  <span>CITSchedule</span>
+                </div>
+                <div className="text-[11px] text-slate-500 font-medium">{getPortalSubtitle()}</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/50">
+                CIT
+              </span>
+              {onCloseMobile && (
+                <button
+                  type="button"
+                  onClick={onCloseMobile}
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 lg:hidden cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
-          <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/50">
-            CIT
-          </span>
-        </div>
 
-        {/* Section Heading */}
-        <div className="px-5 pt-5 pb-2">
-          <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-            {role === 'faculty' ? 'ACADEMIC PORTAL' : 'ACADEMIC OPERATIONS'}
-          </p>
-        </div>
+          {/* Section Heading */}
+          <div className="px-5 pt-5 pb-2">
+            <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              {role === 'faculty' ? 'ACADEMIC PORTAL' : 'ACADEMIC OPERATIONS'}
+            </p>
+          </div>
 
-        {/* Navigation Link List */}
-        <nav className="px-3 space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = currentTab === item.id;
+          {/* Navigation Link List */}
+          <nav className="px-3 space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = currentTab === item.id;
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => onSelectTab(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-colors duration-150 group cursor-pointer ${
-                  isActive
-                    ? 'bg-blue-50 text-blue-700 shadow-2xs font-semibold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    onSelectTab(item.id);
+                    if (onCloseMobile) onCloseMobile();
+                  }}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-colors duration-150 group cursor-pointer ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-700 shadow-2xs font-semibold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                >
                 <div className="flex items-center space-x-3">
                   <Icon
                     className={`w-4 h-4 transition-colors ${
@@ -181,5 +215,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
     </aside>
+  </>
   );
 };

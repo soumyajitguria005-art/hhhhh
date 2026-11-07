@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Bell, Calendar, Cpu, ChevronDown, LogOut, RefreshCw, UserCheck, Check, CheckCheck, Inbox, ShieldCheck } from 'lucide-react';
+import { Search, Bell, Calendar, Cpu, ChevronDown, LogOut, RefreshCw, UserCheck, Check, CheckCheck, Inbox, ShieldCheck, Menu } from 'lucide-react';
 import { UserItem } from '../types';
 
 interface NotificationItem {
@@ -18,12 +18,14 @@ interface NavbarProps {
   onSelectUser?: (user: UserItem) => void;
   onLogout: () => void;
   onOpenPublicLanding?: () => void;
+  onToggleMobileMenu?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   onLogout,
   onOpenPublicLanding,
+  onToggleMobileMenu,
 }) => {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -115,24 +117,34 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-      {/* Search Input Bar */}
-      <div className="flex-1 max-w-xl">
-        <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+    <header className="h-16 bg-white border-b border-slate-200 px-3 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+      {/* Search Input Bar & Mobile Menu Trigger */}
+      <div className="flex items-center space-x-2 sm:space-x-3 flex-1 max-w-xl min-w-0">
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="p-1.5 sm:p-2 -ml-1 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl lg:hidden cursor-pointer shrink-0 transition-colors"
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+        <div className="relative flex-1 min-w-0">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
-            placeholder="Search modules, venues, faculty, or slots (⌘K)..."
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-12 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            placeholder="Search modules, venues, slots..."
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 sm:pr-12 py-1.5 sm:py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all truncate"
           />
-          <kbd className="absolute right-3 top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-[10px] text-slate-400 font-mono px-1.5 py-0.5 rounded shadow-2xs">
+          <kbd className="hidden sm:inline-block absolute right-3 top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-[10px] text-slate-400 font-mono px-1.5 py-0.5 rounded shadow-2xs">
             ⌘K
           </kbd>
         </div>
       </div>
 
       {/* Right Controls & User Info */}
-      <div className="flex items-center space-x-3 ml-4">
+      <div className="flex items-center space-x-2 sm:space-x-3 ml-2 sm:ml-4 shrink-0">
         {/* SAT Solver Engine Status Badge */}
         <div className="hidden lg:flex items-center space-x-2 bg-blue-50/70 border border-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-xs font-medium">
           <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
@@ -162,7 +174,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+            <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
               <div className="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="text-xs font-bold text-slate-900">Notifications</span>
@@ -256,7 +268,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* User Profile & Session Dropdown */}
           {showUserDropdown && (
-            <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+            <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-72 max-w-xs bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
               <div className="px-3.5 py-2.5 border-b border-slate-100">
                 <div className="flex items-center space-x-2.5 mb-2">
                   {currentUser.avatar || currentUser.avatarUrl ? (
